@@ -1,0 +1,10 @@
+{% extends 'news/base.html' %}
+{% load static %}
+{% block title %}Success {% endblock title %}
+
+{% block content %}
+    <h1>Congratulations, {{ new_user.first_name }}</h1>
+    <p>Royhatdan muvaffaqqiyatli o'tdingiz!</p>
+    <p>Endi saytga <a href="{% url 'login' %}" style="color: red;">login</a> qilishingiz mumkun</p>
+
+{% endblock content %}

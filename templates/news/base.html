@@ -31,10 +31,21 @@
               <li><a href="{% url 'home_page' %}">Home</a></li>
               <li><a href="#">About</a></li>
               <li><a href="{% url 'contact_page' %}">Contact</a></li>
+                {% if user.is_authenticated and user.is_superuser  %}
+                <li><a href="{% url 'admin_page' %}">Admin</a></li>
+                {% endif %}
             </ul>
           </div>
           <div class="header_top_right">
+          
+            {% if request.user.is_authenticated %}
+                <p><a href="{% url 'logout' %}" style="color: deeppink">Logout</a></p>
+                <p><a href="{% url 'user_profile' %}" style="color: yellow">My profile</a></p>
+            {% else %}
+                <p><a href="{% url 'login' %}" style="color: yellow">Login</a></p>
             <p>{% now "jS F Y H:i" %}</p>
+            {% endif %}
+          
           </div>
         </div>
       </div>
@@ -60,6 +71,11 @@
           <li><a href="{% url 'sport_news_page' %}">Sport</a></li>
           <li><a href="{% url 'contact_page' %}">Contact Us</a></li>
           <li><a href="{% url 'error_page' %}">404 Page</a></li>
+            <li>
+                <form action="{% url 'search_result' %}" method="get">
+                    <input type="search" name="q" placeholder="Qidiruv...." class="form-control">
+                </form>
+            </li>
         </ul>
       </div>
     </nav>
