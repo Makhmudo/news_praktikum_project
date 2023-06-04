@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,6 +35,22 @@
                 {% if user.is_authenticated and user.is_superuser  %}
                 <li><a href="{% url 'admin_page' %}">Admin</a></li>
                 {% endif %}
+
+                <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                    <input name = 'next' type="hidden" value="{{ redirect_to }}">
+                    <select name="language" id="">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGE %}
+                        {% get_language_info_list for LANGUAGE as language %}
+                        {% for language in language %}
+                            <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %} selected {% endif %}>
+                                {{ language.name_local }} ({{ language.code }})
+                            </option>
+
+                        {% endfor %}
+                    </select>
+                    <input type="submit" value="go">
+                </form>
             </ul>
           </div>
           <div class="header_top_right">
